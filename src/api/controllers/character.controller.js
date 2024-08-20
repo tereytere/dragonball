@@ -38,4 +38,19 @@ const getAllCharacters = async (req, res) => {
     }
 }
 
-module.exports = { getAllCharacters }
+const getCharacterById = async (req, res) => {
+    const { id } = req.params;
+    try {
+        const findCharacter = await Character.findById(id);
+        if (!findCharacter) {
+            return res.status(200).json({ message: "El personaje no existe" });
+        } else {
+            return res.status(200).json({ data: findCharacter });
+        }
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+
+module.exports = { getAllCharacters, getCharacterById }
